@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#section {
+    width:850px;
+    /*float:left;*/
+    /*position: absolute;  */
+    margin:0 auto;
+    text-align:left;
+    /*text-align:center;*/
+    padding:30px;        
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="header">
+<h1>{{ head }}</h1>
+{{ title }}
+</div>
+
+
+<div>
+{% for c in content %}
+<p id="section">
+<!-- <br>{{ c }}<br /> -->
+&nbsp;&nbsp;&nbsp;&nbsp;{{ c }}
+</p>
+{% endfor %}
+</div>
+
+<!-- <div id="footer">
+Copyright ?     utellme.win
+</div> -->
+
+</body>
+</html>

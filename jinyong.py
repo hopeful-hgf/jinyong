@@ -20,16 +20,17 @@ class Crawler(object):
             config = yaml.load(file)
 
     @save
-    def crawl(self, url):
+    def crawl(self, url, id):
         html = parse(url)
         item = {}
         item['url'] = url
+        item['id'] = id
         item['name'] = html.xpath(r'//*[@id="breadnav"]/a[2]//text()')[-1]
         item['title'] = html.xpath(r'//*[@id="title"]//text()')[-1]
-        pre_content = html.xpath(r'//*[@id="vcon"]//text()')
+        pre_content = html.xpath(r'//*[@id="vcon"]//p//text()')
         item['content'] = ''
         for con in pre_content:
-            item['content'] += con.strip()
+            item['content'] += con.strip() + 'br'
         # print 'title is {}'.format(item['title'].encode('utf-8','ignore'))
         return item
 
@@ -38,8 +39,9 @@ class Crawler(object):
 def run():
     go = Crawler()
     for i in range(822, 874):
+        id = i-821
         url = 'http://www.jinyongwang.com/lu/%s.html' % i
-        go.crawl(url)
+        go.crawl(url, id)
         # break
     logger.info('mission finished')
 

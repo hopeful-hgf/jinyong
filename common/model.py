@@ -31,7 +31,8 @@ class BaseModel(Model):
 
 
 class Jinyong(BaseModel):
-    title = CharField(primary_key=True, max_length=150, verbose_name='章节')
+    id = IntegerField(primary_key=True, verbose_name='id')
+    title = CharField(max_length=150, verbose_name='章节')
     name = CharField(max_length=20, verbose_name='小说')
     url = CharField(max_length=100, verbose_name='url')
     content = TextField(null=True, verbose_name='内容')

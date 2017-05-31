@@ -37,6 +37,7 @@ def save(fun):
         # item = ast.literal_eval(item)
         # News.create(
         Jinyong.create(
+            id=item['id'],
             title=item['title'],
             name=item['name'],
             url=item['url'],
