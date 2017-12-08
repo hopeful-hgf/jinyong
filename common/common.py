@@ -1,34 +1,33 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import requests, time, ast, yaml
+import requests
+import time
+import ast
+import yaml
 from lxml import etree
-from dumblog import dlog
-from model import Jinyong
-from pipeline import pipe
+from common.model import Jinyong
 
-logger = dlog(__file__, console='debug')
-with open('settings.yaml','r') as file:
+with open('settings.yaml', 'r') as file:
     config = yaml.load(file)
 
 
 def parse(url):
-    headers={
-        'Cookie' : config['cookie'],
-        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+    headers = {
+        'Cookie': config['cookie'],
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
     }
-    logger.info('crawling : %s' % (url))
+    print('crawling : %s' % (url))
     try:
         response = requests.get(url, headers=headers)
-        logger.info('status_code is %s' % response.status_code)
+        print('status_code is %s' % response.status_code)
         time.sleep(config['time_sleep'])
         # return response.content
         result = etree.HTML(response.content)
         return result
-    except Exception,err:
-        logger.info(err)
+    except Exception as err:
+        print(err)
         return None
-
 
 
 def save(fun):
@@ -43,5 +42,5 @@ def save(fun):
             url=item['url'],
             content=item['content'],
         )
-        logger.info('saved success {}'.format(item['title'].encode('utf-8','ignore')))
+        print('saved success {}'.format(item['title'].encode('utf-8', 'ignore')))
     return wrap

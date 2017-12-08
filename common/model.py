@@ -2,27 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from peewee import *
-from playhouse.sqlite_ext import SqliteExtDatabase
 from datetime import datetime
-import yaml
 
-try:
-    import psycopg2
-    from playhouse.pool import PooledPostgresqlExtDatabase
-
-    with open('settings.yaml','r') as file:
-        config = yaml.load(file)
-    db = PooledPostgresqlExtDatabase(
-        config['database'],
-        max_connections=8,
-        stale_timeout=300,
-        user=config['user'],
-        host=config['host'],
-        password=config['password'],
-        autorollback=True,
-        register_hstore=False)
-except ImportError:
-    db = SqliteDatabase('Jinyong.sqlite')
+db = SqliteDatabase('jinyong.sqlite')
 
 
 class BaseModel(Model):
@@ -42,5 +24,5 @@ class Jinyong(BaseModel):
 if __name__ == '__main__':
     try:
         Jinyong.create_table()
-    except Exception, err:
-        print err
+    except Exception as err:
+        print(err)

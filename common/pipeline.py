@@ -1,19 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-import redis,yaml
-from redisq import RedisQueue
 import functools
-with open('settings.yaml') as file:
-    config = yaml.load(file)
-conn = redis.Redis(host=config['redis_ip'],
-                   port=config['redis_port'],
-                   password=config['redis_pass'],
-                   db=config['redis_db'])
+import sys
+sys.path.append('..')
+import multiprocessing
+
+import redis
+import yaml
+# import gevent
+# from gevent import monkey
+# monkey.patch_all()
+
+from common.redisq import RedisQueue
 
 
 def pipe(src, dst=None):
+
+    conn = redis.Redis(
+        host=Setting.redis_ip,
+        port=Setting.redis_port,
+        password=Setting.redis_pass,
+        db=Setting.redis_db)
+
     src_q = RedisQueue(src, conn=conn)
     if dst:
         dst_q = RedisQueue(dst, conn=conn)
@@ -24,15 +33,16 @@ def pipe(src, dst=None):
             ret = None
             while not src_q.empty():
                 try:
-                    kwargs['param'] = src_q.get(timeout=config['queue_timeout'])
-                except Exception, err:
-                    print err
-                    raise Exception('Get element from redis %s timeout!' % src_q.key)
+                    kwargs['param'] = src_q.get(timeout=Setting.queue_timeout)
+                except Exception as err:
+                    print(err)
+                    raise Exception(
+                        'Get element from redis %s timeout!' % src_q.key)
                 try:
                     ret = func(*args, **kwargs)
-                except Exception, err:
+                except Exception as err:
                     src_q.put(kwargs['param'])
-                    print err
+                    print(err)
                     # raise Exception(err)
                 if dst:
                     if isinstance(ret, list):
@@ -49,5 +59,28 @@ def pipe(src, dst=None):
     return outer
 
 
-# __all__ = [pipe]
+class ConfigMeta(object):
+    def __getattr__(self, key):
+        with open('settings.yaml', 'r') as file:
+            self.con = yaml.load(file)
+        return self.con.get(key)
 
+
+Setting = ConfigMeta()
+
+
+def multi(func, _args=[], sleep=0):
+    p = multiprocessing.Process(target=func, args=_args)
+    p.start()
+    import time
+    time.sleep(sleep)
+    print('process start ! func :: %s, args :: %s' % (func.__name__, _args))
+
+
+# def _gevent(func, _args=None):
+#     if _args:
+#         jobs = [gevent.spawn(func, arg) for arg in _args]
+#     else:
+#         jobs = [gevent.spawn(func,)]
+#     result = gevent.joinall(jobs)
+#     return result

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-import logging, os
+import logging
+import os
 from logging.handlers import RotatingFileHandler
-
 from datetime import datetime
 
 
@@ -20,30 +20,35 @@ class DumbFormatter(logging.Formatter):
         return s
 
 
-def dlog(name, logLevel=None, maxBytes=1024 ** 2 * 10, backupCount=0, console=None):
+def dlog(name, logLevel=None, console=None):
     name = name.split('/')[-1].split('.')[0]
     logger = logging.getLogger(name)
-    levels = {'debug': logging.DEBUG,
-              'info': logging.INFO,
-              'warning': logging.WARNING,
-              'error': logging.ERROR,
-              'critical': logging.CRITICAL}
+    levels = {
+        'debug': logging.DEBUG,
+        'info': logging.INFO,
+        'warning': logging.WARNING,
+        'error': logging.ERROR,
+        'critical': logging.CRITICAL
+    }
     level = levels.get(logLevel, logging.DEBUG)
     logger.setLevel(level)
 
     formatter = DumbFormatter(
-        '%(asctime)s-%(module)s.%(funcName)s(ln:%(lineno)d) - pid:%(process)d - %(levelname)s :: %(message)s')
+        '%(asctime)s-%(module)s.%(funcName)s(ln:%(lineno)d) - pid:%(process)d - %(levelname)s :: %(message)s'
+    )
     if not os.path.exists('logs'):
         os.system('mkdir logs')
-    file_handler = RotatingFileHandler('logs/%s.log' % name, str(maxBytes), str(backupCount))
+    file_handler = RotatingFileHandler(
+        'logs/%s.log' % name, )
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
     if console in levels.keys():
         stream_handler = logging.StreamHandler()
         stream_handler.setLevel(levels.get(console, logging.NOTSET))
-        console_fmtter = DumbFormatter('%(asctime)s %(module)s-ln:%(lineno)d %(levelname)s :: %(message)s',
-                                       datefmt='%H:%M:%S,%f')
+        console_fmtter = DumbFormatter(
+            '%(asctime)s %(module)s-ln:%(lineno)d %(levelname)s :: %(message)s',
+            datefmt='%H:%M:%S,%f')
         stream_handler.setFormatter(console_fmtter)
         logger.addHandler(stream_handler)
     elif not console:
@@ -60,4 +65,3 @@ if __name__ == '__main__':
     logger.info('info')
     logger.error('error')
     logger.critical('critical')
-

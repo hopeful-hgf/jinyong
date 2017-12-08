@@ -1,14 +1,12 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import requests, time, json, re, os, ast, yaml
-from common.redisq import RedisQueue
+# import yaml
+import time
 from common.dumblog import dlog
-# from common.pipeline import pipe
-from common.common import parse,save
+from common.pipeline import multi
+from common.common import parse, save
 # from common.model import Jinyong
-from lxml import etree
-from fnvhash import fnv1a_32
 
 logger = dlog(__file__, console='debug')
 
@@ -16,8 +14,6 @@ logger = dlog(__file__, console='debug')
 class Crawler(object):
     def __init__(self):
         self.count = 0
-        with open('settings.yaml','r') as file:
-            config = yaml.load(file)
 
     @save
     def crawl(self, url, id):
@@ -35,15 +31,16 @@ class Crawler(object):
         return item
 
 
-
 def run():
     go = Crawler()
     for i in range(822, 874):
-        id = i-821
+        id = i - 821
         url = 'http://www.jinyongwang.com/lu/%s.html' % i
-        go.crawl(url, id)
+        multi(go.crawl, _args = [url, id])
+        time.sleep(2)
+        # go.crawl(url, id)
         # break
-    logger.info('mission finished')
+    logger.info('mission finished !')
 
 
 if __name__ == "__main__":
