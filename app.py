@@ -16,13 +16,13 @@ def hello_world():
     return render_template('index.html', names=names)
 
 
-@app.route('/ludingji')
+@app.route('/ludingji/')
 def ludingji():
     data = jy.select()
     return render_template('ludingji.html', data=data)
 
 
-@app.route('/ludingji/<param>')
+@app.route('/ludingji/<param>/')
 def ludingji_detail(param):
     # qu = jy.select().where(jy.title==param).get()
     if int(param) > 52:
@@ -35,7 +35,7 @@ def ludingji_detail(param):
     return render_template('ludingji_detail.html', content=result, head=qu.name, title=qu.title)
 
 
-@app.route('/test')
+@app.route('/test/')
 def test():
     js_lang = u'test'
     # js_lang = u'function message(){alter("printf")}'
