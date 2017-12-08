@@ -24,7 +24,8 @@ def ludingji():
 
 @app.route('/ludingji/<param>')
 def ludingji_detail(param):
-    qu = jy.select().where(jy.title==param).get()
+    # qu = jy.select().where(jy.title==param).get()
+    qu = jy.select().where(jy.id==param).get()
     res = qu.content.split('br')
     result = ['        '+x for x in res]
     print('res is {}'.format(len(res)))
