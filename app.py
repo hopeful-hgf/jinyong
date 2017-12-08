@@ -25,6 +25,9 @@ def ludingji():
 @app.route('/ludingji/<param>')
 def ludingji_detail(param):
     # qu = jy.select().where(jy.title==param).get()
+    if int(param) > 52:
+        result = 'page num is wrong !'
+        return jsonify(result)
     qu = jy.select().where(jy.id==param).get()
     res = qu.content.split('br')
     result = ['        '+x for x in res]
