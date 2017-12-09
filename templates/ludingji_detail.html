@@ -2,46 +2,53 @@
 <html>
 
 <head>
-<style>
-#header {
-    background-color:black;
-    color:white;
-    text-align:center;
-    padding:5px;
-}
-#section {
-    width:850px;
-    /*float:left;*/
-    /*position: absolute;  */
-    margin:0 auto;
-    text-align:left;
-    /*text-align:center;*/
-    padding:30px;        
-}
+  <style type="text/css">
+    #section {
+      width: 850px;
+      /*float:left;*/
+      /*position: absolute;  */
+      margin: 0 auto;
+      text-align: left;
+      /*text-align:center;*/
+      padding: 30px;
+    }
 
-</style>
+    p {
+      text-indent: 0.8cm
+    }
+  </style>
+
+  <title> {{ title }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
-<div id="header">
-<h1>{{ head }}</h1>
-<h2> {{ title }}</h2>
-<title> {{ title }} </title>
-</div>
+  <div class="jumbotron text-center">
+    <h1>{{ head }}</h1>
+    &nbsp;
+    <h2> {{ title }}</h2>
+    <title> {{ title }} </title>
+  </div>
 
 
-<div>
-{% for c in content %}
-<p id="section">
-&nbsp;{{ c }}
-</p>
-{% endfor %}
-</div>
+  <div>
+    {% for c in content %}
+    <p id="section">
+      &nbsp;{{ c }}
+    </p>
+    {% endfor %}
+  </div>
 
-<!-- <div id="footer">
+  <!-- <div id="footer">
 Copyright ?     utellme.win
 </div> -->
 
 </body>
+
 </html>
