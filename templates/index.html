@@ -1,65 +1,43 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-<style>
-#header {
-    background-color:black;
-    color:white;
-    text-align:center;
-    padding:5px;
-}
-#nav {
-    text-align:center;
-    line-height:30px;
-    background-color:#eeeeee;
-    height:300px;
-    width:400px;
-    float:left;
-    padding:5px;          
-}
-#section {
-    width:350px;
-    float:left;
-    padding:10px;        
-}
-#footer {
-    background-color:black;
-    color:white;
-    clear:both;
-    text-align:center;
-    padding:5px;
-    position: absolute;  
-    bottom: 0; 
-    width:100%;
-}
-</style>
+<head style="background-color:rgba(255,255,0,0.25)">
+  <title>littletool.top</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- 新 Bootstrap4 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+  <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+  <h2 class="text-center jumbotron font-weight-bold">
+    Welcome to My Flask Project
+  </h2>
 
-<div id="header">
-<h1>金庸小说</h1>
-</div>
-
-<div id="nav"><a href="../ludingji">
-{% for name in names %}
-  <h3 href='./{{ name }}'>{{ name }}</h3>
-{% endfor %}
-</a>
-</div>
-
-<div id="section">
-<h2>说明</h2>
-<p>
-本应用仅供阅读，不作商业用途, 侵删。
-</p>
-</div>
-
-<div id="footer">
-Copyright ? <a href='https://www.utellme.win'> utellme.win </a>
-<a href='https://mail.qq.com/'>762293490@qq.com </a>
-</div>
+  <div class="container">
+    <ul class="nav nav-tabs justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../ludingji/">鹿鼎记</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="../srcret/">Secret</a>
+        </li>
+    </ul>
+  </div>
 
 </body>
+
 </html>
