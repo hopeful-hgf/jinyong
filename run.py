@@ -3,6 +3,8 @@
 
 from flask import Flask, jsonify, render_template
 from common.model import Jinyong as jy
+from common.dumblog import dlog
+logger = dlog(__file__)
 app = Flask(__name__)
 
 
@@ -32,7 +34,7 @@ def ludingji_detail(param):
     qu = jy.select().where(jy.id == param).get()
     res = qu.content.split('br')
     result = [x for x in res]
-    print('res is {}'.format(len(res)))
+    logger.info('res is {}'.format(len(res)))
     return render_template('ludingji_detail.html', content=result, head=qu.name, title=qu.title)
 
 
