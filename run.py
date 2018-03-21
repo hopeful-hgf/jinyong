@@ -23,7 +23,6 @@ def pipeline(param):
     }
     try:
         result = _dict.get(param)()
-        logger.info('----------> %s' % result)
         return result
     except Exception as err:
         logger.info(err)
