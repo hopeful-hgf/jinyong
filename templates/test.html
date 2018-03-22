@@ -1,42 +1,155 @@
 <!DOCTYPE html>
-<html>
+<!-- saved from url=(0063)https://spacewander.github.io/explore-flask-zh/8-templates.html -->
+<html lang="en">
 
-<head style="background-color:rgba(255,255,0,0.25)">
-  <title>littletool.top</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <!-- 新 Bootstrap4 核心 CSS 文件 -->
-  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ title }}</title>
 
-  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="description" content="">
+    <meta name="generator" content="GitBook 2.2.0">
 
-  <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
-  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://spacewander.github.io/explore-flask-zh/gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="https://spacewander.github.io/explore-flask-zh/gitbook/images/favicon.ico" type="image/x-icon">
 
-  <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
-  <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://spacewander.github.io/explore-flask-zh/gitbook/style.css">
+
+    <link rel="next" href="https://spacewander.github.io/explore-flask-zh/9-static_files.html">
+
+    <link rel="prev" href="https://spacewander.github.io/explore-flask-zh/7-blueprints.html">
+
 </head>
 
 <body>
-  <h2 class="text-center jumbotron font-weight-bold">
-    Welcome to My Flask Project
-  </h2>
 
-  <div class="container">
-    <ul class="nav nav-tabs justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../ludingji/">鹿鼎记</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="../srcret/">Secret</a>
-        </li>
-    </ul>
-  </div>
+    <div class="book without-animation with-summary font-size-2 font-family-1 color-theme-1" data-level="8" data-basepath="."
+        data-revision="Sat Apr 22 2017 23:10:28 GMT+0800 (CST)">
+
+        <div class="book-summary">
+            <div class="book-search">
+                <input type="text" placeholder="Type to search" class="form-control">
+            </div>
+            <ul class="summary">
+                <h1 style="text-align:center">{{ head }}</h1>
+                {% for title in titles %}
+                <li class="chapter" data-level="1" data-path="1-introduction.html">
+                    <a href="/ludingji/{{ loop.index }}">
+                        <i class="fa fa-check"></i>
+
+                        <b>{{ title }}</b>
+                    </a>
+
+                </li>
+                {% endfor %}
+
+
+            </ul>
+        </div>
+
+        <div class="book-body">
+            <div class="body-inner">
+                <div class="book-header">
+                    <!-- Actions Left -->
+                    <a href="https://spacewander.github.io/explore-flask-zh/8-templates.html#" class="btn pull-left toggle-summary" aria-label="Table of Contents">
+                        <i class="fa fa-align-justify"></i>
+                    </a>
+                    <a href="https://spacewander.github.io/explore-flask-zh/8-templates.html#" class="btn pull-left toggle-search" aria-label="Search">
+                        <i class="fa fa-search"></i>
+                    </a>
+
+                    <div id="font-settings-wrapper" class="dropdown pull-left">
+                        <a href="https://spacewander.github.io/explore-flask-zh/8-templates.html#" class="btn toggle-dropdown" aria-label="Font Settings">
+                            <i class="fa fa-font"></i>
+                        </a>
+                        <div class="dropdown-menu font-settings">
+                            <div class="dropdown-caret">
+                                <span class="caret-outer"></span>
+                                <span class="caret-inner"></span>
+                            </div>
+
+                            <div class="buttons">
+                                <button type="button" id="reduce-font-size" class="button size-2">A</button>
+                                <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+                            </div>
+
+                            <div class="buttons font-family-list">
+                                <button type="button" data-font="0" class="button">Serif</button>
+                                <button type="button" data-font="1" class="button">Sans</button>
+                            </div>
+
+                            <div class="buttons color-theme-list">
+                                <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+                                <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+                                <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Actions Right -->
+
+                    <div class="dropdown pull-right">
+                        <a href="https://spacewander.github.io/explore-flask-zh/8-templates.html#" class="btn toggle-dropdown" aria-label="Share">
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+                        <div class="dropdown-menu font-settings dropdown-left">
+                            <div class="dropdown-caret">
+                                <span class="caret-outer"></span>
+                                <span class="caret-inner"></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        <!-- <a href="https://spacewander.github.io/explore-flask-zh/">Flask之旅</a> -->
+                    </h1>
+                </div>
+
+                <div class="page-wrapper" tabindex="-1">
+                    <div class="page-inner">
+
+                        <section class="normal" id="section-">
+
+
+                            <h2>{{ title }}</h2>
+
+                            <div>
+                                {% for c in content %}
+                                <p id="section">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ c }}
+                                </p>
+                                {% endfor %}
+                            </div>
+
+                    </div>
+                </div>
+
+                <script src="/app.js/"></script>
+                <!-- <script src="https://spacewander.github.io/explore-flask-zh/gitbook/app.js"></script> -->
+
+                <script>
+                    require(["gitbook"], function (gitbook) {
+                        var config = {
+                            "fontSettings": {
+                                "theme": "sepia",
+                                "family": "sans",
+                                "size": 2
+                            }
+                        };
+                        gitbook.start(config);
+                    });
+                </script>
 
 </body>
 

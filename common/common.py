@@ -5,8 +5,10 @@ import requests
 import time
 import ast
 import yaml
+from functools import wraps
 from lxml import etree
 from common.model import Jinyong
+from flask import render_template
 
 with open('settings.yaml', 'r') as file:
     config = yaml.load(file)
@@ -44,3 +46,15 @@ def save(fun):
         )
         print('saved success {}'.format(item['title'].encode('utf-8', 'ignore')))
     return wrap
+
+
+def _try(func):
+    @wraps(func)
+    def wrapper(*args, **kw):
+        try:
+            return func(*args, **kw)
+        except Exception as err:
+            print(err)
+            return render_template('404.html')
+
+    return wrapper
