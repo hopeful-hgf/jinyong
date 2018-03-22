@@ -15,13 +15,8 @@ def hello_world():
 
 @_try
 @app.route('/ludingji/')
-def _ludingji():
-    return ludingji(1)
-
-
-@_try
 @app.route('/ludingji/<page>')
-def ludingji(page):
+def ludingji(page=1):
     # qu = jy.select().where(jy.title==page).get()
     if int(page) > 52:
         result = 'page num is wrong !'
@@ -32,6 +27,7 @@ def ludingji(page):
     return render_template('ludingji.html', content=result, head=qu.name, titles=titles, title=qu.title)
 
 
+@_try
 @app.route('/v/')
 def list_movies():
     import os
@@ -39,10 +35,12 @@ def list_movies():
     return render_template('listdir.html', data=files)
 
 
+@_try
 @app.route('/v/<filename>')
 def get_file(filename):
     path = 'video'
     return send_from_directory(path, filename)
+
 
 @_try
 @app.route('/srcret/')
@@ -57,4 +55,5 @@ def test():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.debug = True
+    app.run()
