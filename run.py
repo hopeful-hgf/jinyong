@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 from flask import Flask, render_template, jsonify, send_from_directory
+from google import search
 from common import _try, jy
 from common.dumblog import dlog
 logger = dlog(__file__)
@@ -26,6 +27,11 @@ def ludingji(page=1):
     result = [x for x in qu.content.split('br')]
     return render_template('ludingji.html', content=result, head=qu.name, titles=titles, title=qu.title)
 
+
+@app.route('/google/<word>')
+def google(word='python'):
+    url = 'https://www.google.com.hk/search?hl=en&q=%s' % word
+    return search(url)
 
 @_try
 @app.route('/v/')
@@ -56,4 +62,5 @@ def test():
 
 if __name__ == '__main__':
     # app.debug = True
-    app.run()
+    app.run(host='0.0.0.0', port=8000)
+    # app.run()

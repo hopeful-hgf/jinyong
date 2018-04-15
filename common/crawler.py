@@ -23,8 +23,7 @@ def crawler(url):
         print('status_code is %s' % response.status_code)
         time.sleep(config['time_sleep'])
         # return response.content
-        result = etree.HTML(response.content)
-        return result
+        return response
     except Exception as err:
         print(err)
         return None
