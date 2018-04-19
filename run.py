@@ -11,6 +11,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
+    _str = '<html>  <meta http-equiv="refresh" content="0;url=https://www.littletool.top/index/">  </html> '
+    return _str
+
+
+@app.route('/index/')
+def index():
     return render_template('index.html')
 
 
