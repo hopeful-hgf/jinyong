@@ -34,7 +34,7 @@ def ludingji(page=1):
     return render_template('ludingji.html', content=result, head=qu.name, titles=titles, title=qu.title)
 
 
-@app.route('/google/<word>')
+@app.route('/google/<path:word>')
 def google(word='python'):
     url = 'https://www.google.com.hk/search?hl=en&q=%s' % word
     return search(url)
