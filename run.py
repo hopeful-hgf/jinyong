@@ -55,9 +55,9 @@ def get_file(filename):
 
 
 @_try
-@app.route('/srcret/')
+@app.route('/secret/')
 def _srcret():
-    return render_template('srcret.html')
+    return render_template('secret.html')
 
 
 @_try
