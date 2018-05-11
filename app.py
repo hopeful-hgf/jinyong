@@ -1,30 +1,31 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import os
 from flask import Flask, render_template, jsonify, send_from_directory
-from google import search
-from common import _try, jy
+from common.google import googleproxy
+from common.crawler import _try
+from common.model import Jinyong as jy
 from common.dumblog import dlog
 logger = dlog(__file__)
 app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
-    _str = '<html>  <meta http-equiv="refresh" content="0;url=https://www.littletool.top/index/">  </html> '
+def index():
+    _str = '<html>  <meta http-equiv="refresh" content="0;url=./home/">  </html> '
     return _str
 
 
-@app.route('/index/')
-def index():
-    return render_template('index.html')
+@app.route('/home/')
+def home():
+    return render_template('home.html')
 
 
 @_try
 @app.route('/ludingji/')
 @app.route('/ludingji/<page>')
 def ludingji(page=1):
-    # qu = jy.select().where(jy.title==page).get()
     if int(page) > 52:
         result = 'page num is wrong !'
         return jsonify(result)
@@ -33,11 +34,14 @@ def ludingji(page=1):
     result = [x for x in qu.content.split('br')]
     return render_template('ludingji.html', content=result, head=qu.name, titles=titles, title=qu.title)
 
+@app.route('/favicon.ico')
+def favicon():
+      return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
 
 @app.route('/google/<path:word>')
 def google(word='python'):
     url = 'https://www.google.com.hk/search?hl=en&q=%s' % word
-    return search(url)
+    return googleproxy(url)
 
 @_try
 @app.route('/v/')
@@ -67,6 +71,6 @@ def test():
 
 
 if __name__ == '__main__':
-    # app.debug = True
-    app.run(host='0.0.0.0', port=8000)
+    app.debug = True
+    app.run(host='0.0.0.0', port=9000)
     # app.run()

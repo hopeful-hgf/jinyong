@@ -1,10 +1,12 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from peewee import *
+#from peewee import *
+from peewee import SqliteDatabase, Model, IntegerField, CharField, TextField, DateTimeField
 from datetime import datetime
 
-db = SqliteDatabase('jinyong.sqlite')
+path = 'common/jinyong.sqlite'
+db = SqliteDatabase(path)
 
 
 class BaseModel(Model):
@@ -24,5 +26,6 @@ class Jinyong(BaseModel):
 if __name__ == '__main__':
     try:
         Jinyong.create_table()
+        print('created success : %s' % path)
     except Exception as err:
         print(err)

@@ -1,45 +1,42 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# import yaml
 import time
-from common.dumblog import dlog
-from common.pipeline import multi
-from common.common import parse, save
-# from common.model import Jinyong
+from lxml.etree import HTML
+from common.dumblog import dlog#, multi, crawler, save
+from common.crawler import crawler, save, multi
 
 logger = dlog(__file__, console='debug')
 
 
-class Crawler(object):
-    def __init__(self):
-        self.count = 0
+class spider(object):
 
+    @staticmethod
     @save
-    def crawl(self, url, id):
-        html = parse(url)
+    def crawl(url, _id):
+        logger.info('%s %s' % (url, _id))
+        rep = crawler(url)
+        html = HTML(rep.text)
         item = {}
         item['url'] = url
-        item['id'] = id
+        item['id'] = _id
         item['name'] = html.xpath(r'//*[@id="breadnav"]/a[2]//text()')[-1]
         item['title'] = html.xpath(r'//*[@id="title"]//text()')[-1]
         pre_content = html.xpath(r'//*[@id="vcon"]//p//text()')
         item['content'] = ''
         for con in pre_content:
             item['content'] += con.strip() + 'br'
-        # print 'title is {}'.format(item['title'].encode('utf-8','ignore'))
+        #logger.info('title is %s' % item.get('title'))
         return item
 
 
 def run():
-    go = Crawler()
     for i in range(822, 874):
-        id = i - 821
+        _id = i - 821
         url = 'http://www.jinyongwang.com/lu/%s.html' % i
-        multi(go.crawl, _args = [url, id])
+        multi(spider().crawl, url, _id)
         time.sleep(2)
-        # go.crawl(url, id)
-        # break
+        #break
     logger.info('mission finished !')
 
 

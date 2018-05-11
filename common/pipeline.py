@@ -2,15 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import functools
-import sys
-sys.path.append('..')
-import multiprocessing
 
 import redis
 import yaml
-# import gevent
-# from gevent import monkey
-# monkey.patch_all()
 
 from common.redisq import RedisQueue
 
@@ -68,19 +62,3 @@ class ConfigMeta(object):
 
 Setting = ConfigMeta()
 
-
-def multi(func, _args=[], sleep=0):
-    p = multiprocessing.Process(target=func, args=_args)
-    p.start()
-    import time
-    time.sleep(sleep)
-    print('process start ! func :: %s, args :: %s' % (func.__name__, _args))
-
-
-# def _gevent(func, _args=None):
-#     if _args:
-#         jobs = [gevent.spawn(func, arg) for arg in _args]
-#     else:
-#         jobs = [gevent.spawn(func,)]
-#     result = gevent.joinall(jobs)
-#     return result
