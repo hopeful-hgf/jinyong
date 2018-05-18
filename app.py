@@ -34,14 +34,17 @@ def ludingji(page=1):
     result = [x for x in qu.content.split('br')]
     return render_template('ludingji.html', content=result, head=qu.name, titles=titles, title=qu.title)
 
-@app.route('/favicon.ico')
-def favicon():
-      return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico')
+
+@app.route('/<path:_file>')
+def favicon(_file):
+    return send_from_directory(os.path.join(app.root_path, 'static'), _file)
+
 
 @app.route('/google/<path:word>')
 def google(word='python'):
     url = 'https://www.google.com.hk/search?hl=en&q=%s' % word
     return googleproxy(url)
+
 
 @_try
 @app.route('/v/')
