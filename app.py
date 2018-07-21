@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    _str = '<html>  <meta http-equiv="refresh" content="0;url=./home/">  </html> '
+    _str = '<html>  <meta http-equiv="refresh" content="0;url=https://littletool.top/home/">  </html> '
     return _str
 
 
@@ -61,11 +61,11 @@ def get_file(filename):
     return send_from_directory(path, filename)
 
 
-@_try
-@app.route('/secret/')
-def _srcret():
-    return render_template('secret.html')
-
+#@_try
+#@app.route('/secret/')
+#def _srcret():
+#    return render_template('secret.html')
+#
 
 @_try
 @app.route('/test/')
